@@ -40,3 +40,26 @@ php artisan schedule:run
 ```
 
 depois disso, seeds foram adicionadas nas respectivas tabelas de template de email e de streams. Agora pode executar as rotas.
+Comece registrando um usuario na rota http://127.0.0.1:8000/api/create-user.
+
+```console
+{
+    "name": "Tatiana Monte Negro",
+    "email": "tatianamontenegro@gmail.com",
+    "password" : "123456"
+}
+```
+
+Depois disso pode fazer login na rota http://127.0.0.1:8000/api/auth/login e então você pode adicionar uma inscrição ao usuario que você criou, com a rota http://127.0.0.1:8000/api/auth/signatures. Você só tem que enviar o id do produto e o id do usuario:
+
+```console
+{
+    "user_id":"1",
+    "product_id":"1"
+}
+```
+
+Ao fazer isto, você pode olhar no banco de dados e vai perceber que não apenas um novo registro na tabela "subscriptions", mas tambem na tabela "dispatch_mails", pois o serviço de filas trabalhou enquanto uma nova assinatura estava sendo criada. A fila registrou na tabela "dispatch_mails" e funcionaria para registrar emails enviados para usuarios contendo templates correspondentes a determinados eventos, como inscrição, cancelamento, atraso, e etc.
+
+Você tambem pode deletar a inscrição do usuario logado com a rota: http://127.0.0.1:8000/api/auth/signatures/{product_id}.
+Você tambem pode ver suas inscrições pela rota: http://127.0.0.1:8000/api/auth/signatures
