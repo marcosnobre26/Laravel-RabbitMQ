@@ -14,3 +14,12 @@ Primeiramente vamos executar o comando docker para visualizar o rabbitMQ:
 ```bash
 docker run -d --name rabbitmq -p 15672:15672 -p 5672:5672 rabbitmq:management
 ```
+Depois disso, coloque no seu arquivo .env estas credenciais:
+
+```console
+RABBITMQ_HOST=localhost
+RABBITMQ_PORT=5672
+RABBITMQ_VHOST=/
+RABBITMQ_LOGIN=guest
+RABBITMQ_PASSWORD=guest
+```
