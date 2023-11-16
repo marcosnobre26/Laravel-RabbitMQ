@@ -14,7 +14,7 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'web',
+        'guard' => 'api',
         'passwords' => 'users',
     ],
 
@@ -39,6 +39,12 @@ return [
         'web' => [
             'driver' => 'session',
             'provider' => 'users',
+        ],
+    
+        'api' => [
+            'driver' => 'jwt', // Certifique-se de que você tenha o driver JWT instalado e configurado corretamente
+            'provider' => 'users',
+            'hash' => false,
         ],
     ],
 

@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: laravel-app
+    volumes:
+      - ./your-laravel-app:/var/www/html
+    depends_on:
+      - db
+
+  db:
+    image: mysql:5.7
+    container_name: laravel-db
+    environment:
+      MYSQL_DATABASE: your_database
+      MYSQL_USER: your_user
+      MYSQL_PASSWORD: your_password
+      MYSQL_ROOT_PASSWORD: your_root_password
+    volumes:
+      - ./mysql-data:/var/lib/mysql
+
+  web:
+    image: nginx:alpine
+    container_name: laravel-nginx
+    volumes:
+      - ./your-laravel-app:/var/www/html
+    depends_on:
+      - app
