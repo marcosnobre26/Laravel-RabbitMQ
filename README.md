@@ -23,3 +23,20 @@ RABBITMQ_VHOST=/
 RABBITMQ_LOGIN=guest
 RABBITMQ_PASSWORD=guest
 ```
+
+Depois de executado, você podera acessar o painel do RabbitMQ pelo link: http://localhost:15672/. O usuario e senha serão "guest". Crie uma queue com o nome "shot_emails".
+
+Feito isto, crie um banco de dados com o nome "agenda" no PHPMyAdmin ou em um banco de sua escolha, e configure as credenciais corretas no seu arquivo .env.
+Após isto, execute:
+
+```bash
+composer install
+php artisan serve
+php artisan migrate
+php artisan db:seed --class=StreamingSeeder
+php artisan db:seed --class=TemplateSeeder
+php artisan queue:work
+php artisan schedule:run
+```
+
+depois disso, seeds foram adicionadas nas respectivas tabelas de template de email e de streams. Agora pode executar as rotas.
